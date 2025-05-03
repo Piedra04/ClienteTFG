@@ -1,0 +1,22 @@
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Ocupa toda la altura de la ventana */
+  }
+
+  /* Añadir algo de margen y estilo al formulario */
+  .form-card {
+    width: 100%;
+    max-width: 600px; /* Limitar el tamaño máximo del formulario */
+    padding: 20px;
+    background-color: #f8f9fa; /* Fondo claro */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Mejorar la apariencia del título */
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }

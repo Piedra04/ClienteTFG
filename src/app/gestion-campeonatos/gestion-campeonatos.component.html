@@ -1,0 +1,108 @@
+
+<body class="bg-light">
+    <!-- CREAR CAMPEONATO -->
+    <div class="card mb-4">
+      <div class="card-header bg-primary text-white">Crear Campeonato</div>
+      <div class="card-body">
+        <form id="createCampeonatoForm">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="createFechaInicio" class="form-label">Fecha de Inicio</label>
+              <input type="date" class="form-control" id="createFechaInicio" name="fechaInicio" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="createFechaFin" class="form-label">Fecha de Fin</label>
+              <input type="date" class="form-control" id="createFechaFin" name="fechaFin" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="createDescripcion" class="form-label">Descripción</label>
+            <textarea class="form-control" id="createDescripcion" name="descripcion" rows="3"></textarea>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="createGanador" class="form-label">ID del Ganador</label>
+              <input type="number" class="form-control" id="createGanador" name="ganador">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="createJuego" class="form-label">ID del Juego</label>
+              <input type="number" class="form-control" id="createJuego" name="juego" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="createEstado" class="form-label">Estado</label>
+            <select class="form-select" id="createEstado" name="estado" required>
+              <option value="">Seleccionar...</option>
+              <option value="Finalizado">Finalizado</option>
+              <option value="EnCurso">En Curso</option>
+              <option value="Pendiente">Pendiente</option>
+              <option value="Cancelado">Cancelado</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Crear Campeonato</button>
+        </form>
+      </div>
+    </div>
+  
+    <!-- EDITAR CAMPEONATO -->
+    <div class="card mb-4">
+      <div class="card-header bg-warning">Editar Campeonato</div>
+      <div class="card-body">
+        <form id="editCampeonatoForm">
+          <div class="mb-3">
+            <label for="editIdCampeonato" class="form-label">ID del Campeonato</label>
+            <input type="number" class="form-control" id="editIdCampeonato" name="idCampeonato" readonly>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="editFechaInicio" class="form-label">Fecha de Inicio</label>
+              <input type="date" class="form-control" id="editFechaInicio" name="fechaInicio" required>
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="editFechaFin" class="form-label">Fecha de Fin</label>
+              <input type="date" class="form-control" id="editFechaFin" name="fechaFin" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="editDescripcion" class="form-label">Descripción</label>
+            <textarea class="form-control" id="editDescripcion" name="descripcion" rows="3"></textarea>
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label for="editGanador" class="form-label">ID del Ganador</label>
+              <input type="number" class="form-control" id="editGanador" name="ganador">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label for="editJuego" class="form-label">ID del Juego</label>
+              <input type="number" class="form-control" id="editJuego" name="juego" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="editEstado" class="form-label">Estado</label>
+            <select class="form-select" id="editEstado" name="estado" required>
+              <option value="">Seleccionar...</option>
+              <option value="Finalizado">Finalizado</option>
+              <option value="EnCurso">En Curso</option>
+              <option value="Pendiente">Pendiente</option>
+              <option value="Cancelado">Cancelado</option>
+            </select>
+          </div>
+          <button type="submit" class="btn btn-warning">Guardar Cambios</button>
+        </form>
+      </div>
+    </div>
+  
+    <!-- ELIMINAR CAMPEONATO -->
+    <div class="card mb-4">
+      <div class="card-header bg-danger text-white">Eliminar Campeonato</div>
+      <div class="card-body">
+        <form id="deleteCampeonatoForm">
+          <div class="mb-3">
+            <label for="deleteIdCampeonato" class="form-label">ID del Campeonato a eliminar</label>
+            <input type="number" class="form-control" id="deleteIdCampeonato" name="idCampeonatoDelete" required>
+          </div>
+          <button type="submit" class="btn btn-danger">Eliminar Campeonato</button>
+        </form>
+      </div>
+    </div>
+  </body>

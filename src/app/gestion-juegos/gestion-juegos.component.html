@@ -1,0 +1,54 @@
+<body class="bg-light">
+
+    <div class="card mb-4">
+        <div class="card-header bg-primary text-white">Crear Juego</div>
+        <div class="card-body">
+            <form id="createGameForm">
+                <div class="mb-3">
+                    <label for="nombreJuego" class="form-label">Nombre del Juego</label>
+                    <input type="text" class="form-control" id="nombreJuego" name="nombreJuego" maxlength="20" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nUnidades" class="form-label">Número de Unidades</label>
+                    <input type="number" class="form-control" id="nUnidades" name="nUnidades" min="0" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Crear Juego</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-warning">Editar Juego</div>
+        <div class="card-body">
+            <form id="editGameForm">
+                <div class="mb-3">
+                    <label for="idJuego" class="form-label">ID del Juego</label>
+                    <input type="number" class="form-control" id="idJuego" name="idJuego" readonly>
+                </div>
+                <div class="mb-3">
+                    <label for="nombreJuego" class="form-label">Nombre del Juego</label>
+                    <input type="text" class="form-control" id="nombreJuego" name="nombreJuego" maxlength="20" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nUnidades" class="form-label">Número de Unidades</label>
+                    <input type="number" class="form-control" id="nUnidades" name="nUnidades" min="0" required>
+                </div>
+                <button type="submit" class="btn btn-warning">Guardar Cambios</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card mb-4">
+        <div class="card-header bg-danger text-white">Eliminar Juego</div>
+        <div class="card-body">
+            <form id="deleteGameForm">
+                <div class="mb-3">
+                    <label for="idJuegoDelete" class="form-label">ID del Juego a eliminar</label>
+                    <input type="number" class="form-control" id="idJuegoDelete" name="idJuegoDelete" required>
+                </div>
+                <button type="submit" class="btn btn-danger">Eliminar Juego</button>
+            </form>
+        </div>
+    </div>
+
+</body>
