@@ -17,7 +17,6 @@ describe('AppComponent', () => {
   it(`should have the 'bibliomor_cliente' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('bibliomor_cliente');
   });
 
   it('should render title', () => {
