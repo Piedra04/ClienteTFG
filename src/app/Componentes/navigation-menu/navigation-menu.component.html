@@ -1,8 +1,10 @@
-<div class="sidenav d-flex flex-column align-items-start p-3 bg-light" style="height: 100vh;">
-  <button class="btn btn-primary mb-2 w-100 text-start">Dashboard</button>
-  <button class="btn btn-primary mb-2 w-100 text-start">Libros</button>
-  <button class="btn btn-primary mb-2 w-100 text-start">Juegos</button>
-  <button class="btn btn-primary mb-2 w-100 text-start">Campeonatos</button>
-  <button class="btn btn-primary mb-2 w-100 text-start">Administración</button>
-  <button class="btn btn-danger mt-auto w-100 text-start">Cerrar sesión</button>
+<div class="sidenav">
+  <a href="#" (click)="onDashboard()">Dashboard</a>
+  <a href="#" (click)="onLibros()">Libros</a>
+  <a href="#" (click)="onJuegos()">Juegos</a>
+  <a href="#" (click)="onCampeonatos()">Campeonatos</a>
+  @if (esAdmin){
+  <a href="#" (click)="onAdministracion()">Administración</a>
+  }
+  <button class="logout-btn" (click)="onLogout()">Cerrar sesión</button>
 </div>

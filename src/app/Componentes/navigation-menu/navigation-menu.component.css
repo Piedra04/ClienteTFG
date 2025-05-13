@@ -8,6 +8,17 @@
     padding-top: 20px;
 }
 
+.sidenav a {
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    display: block;
+}
+
+.sidenav a:hover {
+    background-color: #575d63;
+}
+
 .logout-btn {
     position: absolute;
     bottom: 20px;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { LoginComponent } from './Componentes/login/login.component';
@@ -13,6 +13,7 @@ import { GestionLibrosComponent } from './Componentes/gestion-libros/gestion-lib
 import { GestionCampeonatosComponent } from './Componentes/gestion-campeonatos/gestion-campeonatos.component';
 import { GestionUsuariosComponent } from './Componentes/gestion-usuarios/gestion-usuarios.component';
 
+
 @Component({
   selector: 'app-root',
   imports: [LoginComponent, RegisterComponent, NavigationMenuComponent, VistaJuegosComponent, VistaLibrosComponent, VistaTorneosComponent, VistaAdminComponent, GestionJuegosComponent, GestionLibrosComponent, GestionCampeonatosComponent, GestionUsuariosComponent],
@@ -20,6 +21,18 @@ import { GestionUsuariosComponent } from './Componentes/gestion-usuarios/gestion
   styleUrl: './app.component.css'
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit {
   
+  isLoggedIn!: boolean;
+  isLogging!: boolean;
+  isAdmin!: boolean;
+  vista!: string;
+  gestion!: string;
+
+  ngOnInit() {
+    this.isLoggedIn = true;
+    this.isLogging = true;
+    this.vista = 'libros';
+    this.gestion = 'usuarios';
+  }
 }

@@ -1,6 +1,7 @@
-  <select class="form-select" aria-label="Seleccione area a gestionar">
-    <option value="Libros">Libros</option>
-    <option value="Juegos">Juegos</option>
-    <option value="Torneos">Torneos</option>
-    <option value="Usuarios">Usuarios</option>
-  </select>
+<select class="form-select" aria-label="Seleccione área a gestionar" (change)="onSelectChange($event)">
+  <option value="">Seleccione una opción</option>
+  <option value="usuarios">Usuarios</option>
+  <option value="libros">Libros</option>
+  <option value="juegos">Juegos</option>
+  <option value="campeonatos">Campeonatos</option>
+</select>

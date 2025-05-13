@@ -1,17 +1,46 @@
-<!-- Vista de inicio -->
-
-<!-- <app-login></app-login> -->
-<!-- <app-register></app-register> -->
-
-<!-- Una vez dentro -->
-<app-navigation-menu></app-navigation-menu>
-<!-- <app-vista-libros></app-vista-libros> -->
-<!-- <app-vista-juegos></app-vista-juegos> -->
-<!-- <app-vista-torneos></app-vista-torneos> -->
-<app-vista-admin></app-vista-admin>
-<p></p>
-<!-- Dentro del admin la opcion que elija -->
-<!-- <app-gestion-libros></app-gestion-libros> -->
-<!-- <app-gestion-juegos></app-gestion-juegos> -->
-<!-- <app-gestion-campeonatos></app-gestion-campeonatos> -->
-<app-gestion-usuarios class="vista"></app-gestion-usuarios>
+@if (!isLoggedIn) {
+  @if (isLogging) {
+    <app-login></app-login>
+  } @else {
+    <app-register></app-register>
+  }
+} @else {
+  <app-navigation-menu></app-navigation-menu>
+  <div style="margin-left: 250px;">
+  @switch(vista){
+    
+    <!-- @case('dashboard') {
+        <app-vista-home></app-vista-home>
+      } -->
+    @case('libros') {
+        <app-vista-libros></app-vista-libros>
+      }
+    @case('juegos') {
+        <app-vista-juegos></app-vista-juegos>
+      }
+    @case('campeonatos') {
+        <app-vista-torneos></app-vista-torneos>
+      }
+    @case('administracion'){
+        <div style="padding: 10px;">
+        <app-vista-admin></app-vista-admin>
+        </div>
+        <div style="padding: 10px;">
+        @switch(gestion){
+            @case('usuarios') {
+                <app-gestion-usuarios></app-gestion-usuarios>
+            }
+            @case('libros') {
+                <app-gestion-libros></app-gestion-libros>
+            }
+            @case('juegos') {
+                <app-gestion-juegos></app-gestion-juegos>
+            }
+            @case('campeonatos') {
+                <app-gestion-campeonatos></app-gestion-campeonatos>
+            }
+        }
+        </div>
+    }
+  }</div>
+}

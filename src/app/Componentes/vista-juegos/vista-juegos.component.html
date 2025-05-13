@@ -1,50 +1,37 @@
+<div class="form-container">
+  <div class="form-card">
+    <h2>Formulario de Reserva de Juego</h2>
+    <form>
+      <div class="mb-3">
+        <label for="juego" class="form-label">Juego de Mesa</label>
+        <select class="form-select" id="juego" required>
+          <option value="" disabled selected>Seleccione un juego</option>
+          <option value="ajedrez">Ajedrez</option>
+          <option value="parchis">Parchís</option>
+          <option value="damas">Damas Chinas</option>
+          <option value="monopoly">Monopoly</option>
+          <option value="dominó">Dominó</option>
+        </select>
+      </div>
 
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-<body>
-  <div class="form-container">
-    <!-- Formulario centrado -->
-    <div class="form-card">
-      <h2>Formulario de Reserva de Juego</h2>
-      <!-- Formulario -->
-      <form>
-        <!-- Juego (Desplegable) -->
-        <div class="mb-3">
-          <label for="juego" class="form-label">Juego de Mesa</label>
-          <select class="form-select" id="juego" required>
-            <option value="" disabled selected>Seleccione un juego</option>
-            <option value="ajedrez">Ajedrez</option>
-            <option value="parchis">Parchís</option>
-            <option value="damas">Damas Chinas</option>
-            <option value="monopoly">Monopoly</option>
-            <option value="dominó">Dominó</option>
-          </select>
+      <div class="mb-3">
+        <label for="fecha" class="form-label">Fecha</label>
+        <input type="date" class="form-control" id="fecha" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Recreo</label><br>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="recreo" id="recreo1" value="1" required>
+          <label class="form-check-label" for="recreo1">Recreo 1</label>
         </div>
-        
-        <!-- Fecha -->
-        <div class="mb-3">
-          <label for="fecha" class="form-label">Fecha</label>
-          <input type="date" class="form-control" id="fecha" required>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" name="recreo" id="recreo2" value="2" required>
+          <label class="form-check-label" for="recreo2">Recreo 2</label>
         </div>
-    
-        <!-- Recreo (1 o 2) -->
-        <div class="mb-3">
-          <label class="form-label">Recreo</label><br>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="recreo" id="recreo1" value="1" required>
-            <label class="form-check-label" for="recreo1">Recreo 1</label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="recreo" id="recreo2" value="2" required>
-            <label class="form-check-label" for="recreo2">Recreo 2</label>
-          </div>
-        </div>
-        
-        <!-- Botón de Enviar -->
-        <button type="submit" class="btn btn-primary w-100">Enviar</button>
-      </form>
-    </div>
+      </div>
+
+      <button type="submit" class="btn btn-primary w-100">Enviar</button>
+    </form>
   </div>
-
-  <!-- Bootstrap JS y dependencias -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+</div>
