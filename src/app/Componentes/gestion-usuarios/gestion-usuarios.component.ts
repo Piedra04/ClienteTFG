@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { Usuario } from '../../Modelos/usuario';
 import { UsuarioService } from '../../Servicios/usuario.service';
 
 @Component({
   selector: 'app-gestion-usuarios',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './gestion-usuarios.component.html',
   styleUrl: './gestion-usuarios.component.css'
 })

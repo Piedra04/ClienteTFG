@@ -9,8 +9,6 @@ import { HttpClient } from '@angular/common/http';
 export class UsuarioService {
 
   private url: string = 'http://localhost:8080/usuario';
-
-  private usuarios: Usuario[] = [];
   
   constructor(private http: HttpClient) { }
 

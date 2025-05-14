@@ -7,6 +7,8 @@ export class Libro {
     autor!: string;
     unidadesTotales!: number;
     unidadesDisponibles!: number;
+    curso!: string;
+    estado!: string;
     generos!: Genero[];
     sinopsis!: string;
     

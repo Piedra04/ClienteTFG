@@ -1,50 +1,98 @@
+<!-- CREAR JUEGO -->
+@if (formCrear == true) {
 <div class="card mb-4">
-    <div class="card-header bg-primary text-white">Crear Juego</div>
-    <div class="card-body">
-        <form id="createGameForm">
-            <div class="mb-3">
-                <label for="nombreJuego" class="form-label">Nombre del Juego</label>
-                <input type="text" class="form-control" id="nombreJuego" name="nombreJuego" maxlength="20" required>
-            </div>
-            <div class="mb-3">
-                <label for="nUnidades" class="form-label">Número de Unidades</label>
-                <input type="number" class="form-control" id="nUnidades" name="nUnidades" min="0" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Crear Juego</button>
-        </form>
-    </div>
+  <div class="card-header bg-primary text-white">Crear Juego</div>
+  <div class="card-body">
+    <form id="createGameForm">
+      <div class="mb-3">
+        <label for="createNombre" class="form-label">Nombre del Juego</label>
+        <input type="text" class="form-control" id="createNombre" name="nombre" maxlength="50" required>
+      </div>
+      <div class="mb-3">
+        <label for="createUnidades" class="form-label">Número de Unidades</label>
+        <input type="number" class="form-control" id="createUnidades" name="unidades" min="0" required>
+      </div>
+      <div class="row">
+        <div class="col-12 mb-2">
+          <button type="submit" class="btn btn-success w-100">Crear Juego</button>
+        </div>
+        <div class="col-12">
+          <button type="button" class="btn btn-secondary w-100" (click)="goBack()">Atrás</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
+}
 
+<!-- TABLA DE JUEGOS -->
+@if(lista == true) {
+<button class="btn btn-primary" (click)="showCreate()"> Crear Juego</button>
+<p></p>
 <div class="card mb-4">
-    <div class="card-header bg-warning">Editar Juego</div>
-    <div class="card-body">
-        <form id="editGameForm">
-            <div class="mb-3">
-                <label for="idJuego" class="form-label">ID del Juego</label>
-                <input type="number" class="form-control" id="idJuego" name="idJuego" readonly>
-            </div>
-            <div class="mb-3">
-                <label for="nombreJuego" class="form-label">Nombre del Juego</label>
-                <input type="text" class="form-control" id="nombreJuego" name="nombreJuego" maxlength="20" required>
-            </div>
-            <div class="mb-3">
-                <label for="nUnidades" class="form-label">Número de Unidades</label>
-                <input type="number" class="form-control" id="nUnidades" name="nUnidades" min="0" required>
-            </div>
-            <button type="submit" class="btn btn-warning">Guardar Cambios</button>
-        </form>
-    </div>
+  <div class="card-header bg-info text-white">Lista de Juegos</div>
+  <div class="card-body">
+    @if (juegos.length == 0) {
+    <div class="alert alert-danger">No se han encontrado juegos</div>
+    }@else {
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Unidades</th>
+          <th>Eliminar</th>
+          <th>Editar</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (juego of juegos; track juegos) {
+        <tr>
+          <td>{{ juego.id }}</td>
+          <td>{{ juego.nombre }}</td>
+          <td>{{ juego.nUnidades }}</td>
+          <td>
+            <button class="btn btn-danger" (click)="onRemove(juego.id)">Eliminar</button>
+          </td>
+          <td>
+            <button class="btn btn-warning" (click)="showEdit(juego.id)"> Editar</button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    }
+  </div>
 </div>
+}
 
+<!-- EDITAR JUEGO -->
+@if(formEditar == true) {
 <div class="card mb-4">
-    <div class="card-header bg-danger text-white">Eliminar Juego</div>
-    <div class="card-body">
-        <form id="deleteGameForm">
-            <div class="mb-3">
-                <label for="idJuegoDelete" class="form-label">ID del Juego a eliminar</label>
-                <input type="number" class="form-control" id="idJuegoDelete" name="idJuegoDelete" required>
-            </div>
-            <button type="submit" class="btn btn-danger">Eliminar Juego</button>
-        </form>
-    </div>
+  <div class="card-header bg-warning text-white">Editar Juego</div>
+  <div class="card-body">
+    <form id="editGameForm">
+      <div class="mb-3">
+        <label for="editId" class="form-label">ID</label>
+        <input type="number" class="form-control" id="editId" name="id" readonly required>
+      </div>
+      <div class="mb-3">
+        <label for="editNombre" class="form-label">Nombre del Juego</label>
+        <input type="text" class="form-control" id="editNombre" name="nombre" maxlength="50" required>
+      </div>
+      <div class="mb-3">
+        <label for="editUnidades" class="form-label">Número de Unidades</label>
+        <input type="number" class="form-control" id="editUnidades" name="unidades" min="0" required>
+      </div>
+      <div class="row">
+        <div class="col-12 mb-2">
+          <button (click)="onEdit()" type="submit" class="btn btn-warning w-100">Guardar Cambios</button>
+        </div>
+        <div class="col-12">
+          <button type="button" class="btn btn-secondary w-100" (click)="goBack()">Atrás</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
+}

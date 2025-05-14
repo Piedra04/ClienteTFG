@@ -8,125 +8,163 @@
     </div>
 </div>
 
+<!-- CREAR LIBRO -->
+@if (formCrear == true) {
 <div class="card mb-4">
-    <div class="card-header bg-primary text-white">Crear Libro</div>
-    <div class="card-body">
-        <form id="createBookForm">
-            <div class="mb-3">
-                <label for="isbn" class="form-label">ISBN</label>
-                <input type="text" class="form-control" id="isbn" name="isbn" maxlength="13" required>
-            </div>
-            <div class="mb-3">
-                <label for="titulo" class="form-label">Título</label>
-                <input type="text" class="form-control" id="titulo" name="titulo" maxlength="50" required>
-            </div>
-            <div class="mb-3">
-                <label for="autor" class="form-label">Autor</label>
-                <input type="text" class="form-control" id="autor" name="autor" maxlength="20" required>
-            </div>
-            <div class="mb-3">
-                <label for="sinopsis" class="form-label">Sinopsis</label>
-                <textarea class="form-control" id="sinopsis" name="sinopsis" rows="3" required></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="curso" class="form-label">Curso:</label>
-                <select id="curso" name="curso" class="form-select" required>
-                    <option value="">No es libro de nungun curso</option>
-                    <option value="1ESO">1º de ESO</option>
-                    <option value="2ESO">2º de ESO</option>
-                    <option value="3ESO">3º de ESO</option>
-                    <option value="4ESO">4º de ESO</option>
-                    <option value="1Bachillerato">1º de Bachillerato</option>
-                    <option value="2Bachillerato">2º de Bachillerato</option>
-                    <option value="GradoMedio">Grado Medio</option>
-                    <option value="GradoSuperior">Grado Superior</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="unidadesTotales" class="form-label">Unidades Totales</label>
-                <input type="number" class="form-control" id="unidadesTotales" name="unidadesTotales" min="0" required>
-            </div>
-            <div class="mb-3">
-                <label for="unidadesDisponibles" class="form-label">Unidades Disponibles</label>
-                <input type="number" class="form-control" id="unidadesDisponibles" name="unidadesDisponibles" min="0"
-                    required>
-            </div>
-            <div class="mb-3">
-                <label for="estado" class="form-label">Estado</label>
-                <select class="form-select" id="estado" name="estado" required>
-                    <option value="Disponible">Disponible</option>
-                    <option value="NoDisponible">No Disponible</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-primary">Crear Libro</button>
-        </form>
-    </div>
+  <div class="card-header bg-primary text-white">Crear Libro</div>
+  <div class="card-body">
+    <form id="createLibroForm">
+      <div class="mb-3">
+        <label for="createIsbn" class="form-label">ISBN</label>
+        <input type="text" class="form-control" id="createIsbn" name="isbn" maxlength="13" required>
+      </div>
+      <div class="mb-3">
+        <label for="createTitulo" class="form-label">Título</label>
+        <input type="text" class="form-control" id="createTitulo" name="titulo" maxlength="50" required>
+      </div>
+      <div class="mb-3">
+        <label for="createAutor" class="form-label">Autor</label>
+        <input type="text" class="form-control" id="createAutor" name="autor" maxlength="50" required>
+      </div>
+      <div class="mb-3">
+        <label for="createSinopsis" class="form-label">Sinopsis</label>
+        <textarea class="form-control" id="createSinopsis" name="sinopsis" rows="3" required></textarea>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="createCurso" class="form-label">Curso</label>
+          <select class="form-select" id="createCurso" name="curso" required>
+            <option value="">No es libro de ningún curso</option>
+            <option value="1ESO">1º de ESO</option>
+            <option value="2ESO">2º de ESO</option>
+            <option value="3ESO">3º de ESO</option>
+            <option value="4ESO">4º de ESO</option>
+            <option value="1Bachillerato">1º de Bachillerato</option>
+            <option value="2Bachillerato">2º de Bachillerato</option>
+            <option value="GradoMedio">Grado Medio</option>
+            <option value="GradoSuperior">Grado Superior</option>
+          </select>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="createEstado" class="form-label">Estado</label>
+          <select class="form-select" id="createEstado" name="estado" required>
+            <option value="Disponible">Disponible</option>
+            <option value="NoDisponible">No Disponible</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 mb-2">
+          <button type="submit" class="btn btn-success w-100">Crear Libro</button>
+        </div>
+        <div class="col-12">
+          <button type="button" class="btn btn-secondary w-100" (click)="goBack()">Atrás</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
+}
 
+<!-- TABLA DE LIBROS -->
+@if(lista == true) {
+<button class="btn btn-primary" (click)="showCreate()"> Crear Libro</button>
+<p></p>
 <div class="card mb-4">
-    <div class="card-header bg-warning">Editar Libro</div>
-    <div class="card-body">
-        <form id="editBookForm">
-            <div class="mb-3">
-                <label for="isbn" class="form-label">ISBN</label>
-                <input type="text" class="form-control" id="isbn" name="isbn" readonly>
-            </div>
-            <div class="mb-3">
-                <label for="titulo" class="form-label">Título</label>
-                <input type="text" class="form-control" id="titulo" name="titulo" maxlength="50" required>
-            </div>
-            <div class="mb-3">
-                <label for="autor" class="form-label">Autor</label>
-                <input type="text" class="form-control" id="autor" name="autor" maxlength="20" required>
-            </div>
-            <div class="mb-3">
-                <label for="sinopsis" class="form-label">Sinopsis</label>
-                <textarea class="form-control" id="sinopsis" name="sinopsis" rows="3" required></textarea>
-            </div>
-            <div class="mb-3">
-                <label for="curso" class="form-label">Curso:</label>
-                <select id="curso" name="curso" class="form-select" required>
-                    <option value="">No es libro de nungun curso</option>
-                    <option value="1ESO">1º de ESO</option>
-                    <option value="2ESO">2º de ESO</option>
-                    <option value="3ESO">3º de ESO</option>
-                    <option value="4ESO">4º de ESO</option>
-                    <option value="1Bachillerato">1º de Bachillerato</option>
-                    <option value="2Bachillerato">2º de Bachillerato</option>
-                    <option value="GradoMedio">Grado Medio</option>
-                    <option value="GradoSuperior">Grado Superior</option>
-                </select>
-            </div>
-            <div class="mb-3">
-                <label for="unidadesTotales" class="form-label">Unidades Totales</label>
-                <input type="number" class="form-control" id="unidadesTotales" name="unidadesTotales" min="0" required>
-            </div>
-            <div class="mb-3">
-                <label for="unidadesDisponibles" class="form-label">Unidades Disponibles</label>
-                <input type="number" class="form-control" id="unidadesDisponibles" name="unidadesDisponibles" min="0"
-                    required>
-            </div>
-            <div class="mb-3">
-                <label for="estado" class="form-label">Estado</label>
-                <select class="form-select" id="estado" name="estado" required>
-                    <option value="Disponible">Disponible</option>
-                    <option value="NoDisponible">No Disponible</option>
-                </select>
-            </div>
-            <button type="submit" class="btn btn-warning">Guardar Cambios</button>
-        </form>
-    </div>
+  <div class="card-header bg-info text-white">Lista de Libros</div>
+  <div class="card-body">
+    @if (libros.length == 0) {
+    <div class="alert alert-danger">No se han encontrado libros</div>
+    }@else {
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>ISBN</th>
+          <th>Título</th>
+          <th>Autor</th>
+          <th>Curso</th>
+          <th>Estado</th>
+          <th>Eliminar</th>
+          <th>Editar</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (libro of libros; track libros) {
+        <tr>
+          <td>{{ libro.isbn }}</td>
+          <td>{{ libro.titulo }}</td>
+          <td>{{ libro.autor }}</td>
+          <td>{{ libro.curso }}</td>
+          <td>{{ libro.estado }}</td>
+          <td>
+            <button class="btn btn-danger" (click)="onRemove(libro.isbn)">Eliminar</button>
+          </td>
+          <td>
+            <button class="btn btn-warning" (click)="showEdit(libro.isbn)"> Editar</button>
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+    }
+  </div>
 </div>
+}
 
+<!-- EDITAR LIBRO -->
+@if(formEditar == true) {
 <div class="card mb-4">
-    <div class="card-header bg-danger text-white">Eliminar Libro</div>
-    <div class="card-body">
-        <form id="deleteBookForm">
-            <div class="mb-3">
-                <label for="isbnDelete" class="form-label">ISBN del libro a eliminar</label>
-                <input type="text" class="form-control" id="isbnDelete" name="isbnDelete" maxlength="13" required>
-            </div>
-            <button type="submit" class="btn btn-danger">Eliminar Libro</button>
-        </form>
-    </div>
+  <div class="card-header bg-warning text-white">Editar Libro</div>
+  <div class="card-body">
+    <form id="editLibroForm">
+      <div class="mb-3">
+        <label for="editIsbn" class="form-label">ISBN</label>
+        <input type="text" class="form-control" id="editIsbn" name="isbn" readonly required>
+      </div>
+      <div class="mb-3">
+        <label for="editTitulo" class="form-label">Título</label>
+        <input type="text" class="form-control" id="editTitulo" name="titulo" maxlength="50" required>
+      </div>
+      <div class="mb-3">
+        <label for="editAutor" class="form-label">Autor</label>
+        <input type="text" class="form-control" id="editAutor" name="autor" maxlength="50" required>
+      </div>
+      <div class="mb-3">
+        <label for="editSinopsis" class="form-label">Sinopsis</label>
+        <textarea class="form-control" id="editSinopsis" name="sinopsis" rows="3" required></textarea>
+      </div>
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label for="editCurso" class="form-label">Curso</label>
+          <select class="form-select" id="editCurso" name="curso" required>
+            <option value="">No es libro de ningún curso</option>
+            <option value="1ESO">1º de ESO</option>
+            <option value="2ESO">2º de ESO</option>
+            <option value="3ESO">3º de ESO</option>
+            <option value="4ESO">4º de ESO</option>
+            <option value="1Bachillerato">1º de Bachillerato</option>
+            <option value="2Bachillerato">2º de Bachillerato</option>
+            <option value="GradoMedio">Grado Medio</option>
+            <option value="GradoSuperior">Grado Superior</option>
+          </select>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label for="editEstado" class="form-label">Estado</label>
+          <select class="form-select" id="editEstado" name="estado" required>
+            <option value="Disponible">Disponible</option>
+            <option value="NoDisponible">No Disponible</option>
+          </select>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 mb-2">
+          <button (click)="onEdit()" type="submit" class="btn btn-warning w-100">Guardar Cambios</button>
+        </div>
+        <div class="col-12">
+          <button type="button" class="btn btn-secondary w-100" (click)="goBack()">Atrás</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>
+}

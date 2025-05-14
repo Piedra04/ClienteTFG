@@ -1,7 +1,7 @@
 import { Campeonato } from "./campeonato";
 import { Usuario } from "./usuario";
 
-export class ParticiacionCampeonato {
+export class ParticipacionCampeonato {
 
     id!: number;
     usuario!: Usuario;
