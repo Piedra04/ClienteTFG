@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 
 import { LoginComponent } from './Componentes/login/login.component';
 import { RegisterComponent } from './Componentes/register/register.component';
@@ -12,11 +11,13 @@ import { GestionJuegosComponent } from './Componentes/gestion-juegos/gestion-jue
 import { GestionLibrosComponent } from './Componentes/gestion-libros/gestion-libros.component';
 import { GestionCampeonatosComponent } from './Componentes/gestion-campeonatos/gestion-campeonatos.component';
 import { GestionUsuariosComponent } from './Componentes/gestion-usuarios/gestion-usuarios.component';
-
+import { DashboardComponent } from './Componentes/dashboard/dashboard.component';
+import { DevolucionLibrosComponent } from './Componentes/devolucion-libros/devolucion-libros.component';
+import { Usuario } from './Modelos/usuario';
 
 @Component({
   selector: 'app-root',
-  imports: [LoginComponent, RegisterComponent, NavigationMenuComponent, VistaJuegosComponent, VistaLibrosComponent, VistaTorneosComponent, VistaAdminComponent, GestionJuegosComponent, GestionLibrosComponent, GestionCampeonatosComponent, GestionUsuariosComponent],
+  imports: [DevolucionLibrosComponent, DashboardComponent, LoginComponent, RegisterComponent, NavigationMenuComponent, VistaJuegosComponent, VistaLibrosComponent, VistaTorneosComponent, VistaAdminComponent, GestionJuegosComponent, GestionLibrosComponent, GestionCampeonatosComponent, GestionUsuariosComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -28,11 +29,13 @@ export class AppComponent implements OnInit {
   isAdmin!: boolean;
   vista!: string;
   gestion!: string;
+  currentUser!: Usuario;
 
   ngOnInit() {
-    this.isLoggedIn = true;
+    this.isLoggedIn = false;
     this.isLogging = true;
-    this.vista = 'libros';
+    this.vista = 'dashboard';
     this.gestion = 'usuarios';
+    this.isAdmin = true;
   }
 }

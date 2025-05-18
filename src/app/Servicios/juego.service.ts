@@ -16,6 +16,10 @@ export class JuegoService {
     return this.http.get<Juego[]>(this.url);
   }
 
+  findById(id: number): Observable<Juego> {
+    return this.http.get<Juego>(`${this.url}/${id}`);
+  }
+
   createGame(juego: Juego): Observable<Juego> {
     return this.http.post<Juego>(this.url, juego);
   }

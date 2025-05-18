@@ -1,0 +1,107 @@
+<div class="form-container"><h1>Bienvenido {{ usuario.nombre }} {{ usuario.apellidos }}</h1>
+@if(message) {
+  <div class="alert alert-info mt-2">{{ message }}</div>
+}
+@if(mostrarFormulario) {
+  <button class="btn btn-secondary" (click)="verFormulario()">
+  Volver atras
+</button>
+<form class="mt-3">
+  <div class="mb-2">
+    <label>Nombre</label>
+    <input type="text" class="form-control" [(ngModel)]="usuario.nombre" name="nombre">
+  </div>
+  <div class="mb-2">
+    <label>Apellidos</label>
+    <input type="text" class="form-control" [(ngModel)]="usuario.apellidos" name="apellidos">
+  </div>
+  <div class="mb-2">
+    <label>Correo</label>
+    <input type="email" class="form-control" [(ngModel)]="usuario.correo" name="correo" readonly>
+  </div>
+  <div class="mb-2">
+    <label>Fecha de nacimiento</label>
+    <input type="date" class="form-control" [(ngModel)]="usuario.fechaNacimiento" name="fechaNacimiento">
+  </div>
+  <div class="mb-2">
+    <label>Contraseña</label>
+    <input type="password" class="form-control" [(ngModel)]="usuario.contrasena" name="contrasena">
+  </div>
+  <div class="mb-2">
+    <label>Repetir contraseña</label>
+    <input type="password" class="form-control" [(ngModel)]="usuario.contrasena2" name="contrasena2">
+  </div>
+  <div class="mb-2">
+    <label>Curso</label>
+    <select class="form-control" [(ngModel)]="usuario.curso" name="curso">
+      <option value="1ESO">1º de ESO</option>
+      <option value="2ESO">2º de ESO</option>
+      <option value="3ESO">3º de ESO</option>
+      <option value="4ESO">4º de ESO</option>
+      <option value="1Bachillerato">1º de Bachillerato</option>
+      <option value="2Bachillerato">2º de Bachillerato</option>
+      <option value="GradoMedio">Grado Medio</option>
+      <option value="GradoSuperior">Grado Superior</option>
+    </select>
+  </div>
+  <button class="btn btn-success mt-2" type="button" (click)="guardarCambios()">Guardar cambios</button>
+</form>
+}@else{
+<button class="btn btn-warning" (click)="verFormulario()">
+  Editar mis datos
+</button>
+<h2 class="mt-4">Mis reservas de libros</h2>
+@if(reservasLibrosActivas.length === 0) {
+<div class="alert alert-info">No tienes reservas de libros</div>
+} @else {
+<ul class="list-group mb-4">
+  @for(reserva of reservasLibrosActivas; track reserva) {
+  <li class="list-group-item d-flex align-items-center"
+    style="background: #f8f9fa; border-radius: 8px; margin-bottom: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+    <div style="flex:1">
+      <strong style="font-size:1.1em; color:#2c3e50;">{{ reserva.libro.titulo }}</strong>
+      <span class="badge bg-primary ms-2">ISBN: {{ reserva.libro.isbn }}</span><br>
+      <span style="color:#555; font-size:0.95em;">Fecha de adquisición: {{ reserva.fechaAdquisicion }}</span>
+    </div>
+  </li>
+  }
+</ul>
+}
+
+<h2 class="mt-4">Mis participaciones en campeonatos</h2>
+@if(participacionesActivas.length === 0) {
+<div class="alert alert-info">No estas apuntado en ningun campeonato</div>
+} @else {
+<ul class="list-group mb-4">
+  @for(part of participacionesActivas; track part) {
+  <li class="list-group-item d-flex align-items-center"
+    style="background: #f8f9fa; border-radius: 8px; margin-bottom: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+    <div style="flex:1">
+      <strong style="font-size:1.1em; color:#2c3e50;">{{ part.campeonato.descripcion }}</strong>
+      <span class="badge bg-success ms-2">{{ part.campeonato.estado }}</span><br>
+      <span style="color:#555; font-size:0.95em;">Juego: {{ part.campeonato.juego.nombre }}</span>
+    </div>
+  </li>
+  }
+</ul>
+}
+
+<h2 class="mt-4">Mis reservas de juegos</h2>
+@if(reservasJuegosActivas.length === 0) {
+<div class="alert alert-info">No tienes ningun juego reservado</div>
+} @else {
+<ul class="list-group mb-4">
+  @for(reserva of reservasJuegosActivas; track reserva) {
+  <li class="list-group-item d-flex align-items-center"
+    style="background: #f8f9fa; border-radius: 8px; margin-bottom: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+    <div style="flex:1">
+      <strong style="font-size:1.1em; color:#2c3e50;">{{ reserva.juego.nombre }}</strong>
+      <span class="badge bg-primary ms-2">Fecha: {{ reserva.fecha }}</span><br>
+      <span style="color:#555; font-size:0.95em;">Recreo: {{ reserva.recreo }}</span>
+    </div>
+  </li>
+  }
+</ul>
+}
+}
+</div>

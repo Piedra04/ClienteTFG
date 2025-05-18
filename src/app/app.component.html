@@ -9,9 +9,9 @@
   <div style="margin-left: 250px;">
   @switch(vista){
     
-    <!-- @case('dashboard') {
-        <app-vista-home></app-vista-home>
-      } -->
+    @case('dashboard') {
+        <app-dashboard></app-dashboard>
+      }
     @case('libros') {
         <app-vista-libros></app-vista-libros>
       }
@@ -38,6 +38,9 @@
             }
             @case('campeonatos') {
                 <app-gestion-campeonatos></app-gestion-campeonatos>
+            }
+            @case ('reservas') {
+              <app-devolucion-libros></app-devolucion-libros>
             }
         }
         </div>

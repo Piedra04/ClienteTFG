@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AppComponent } from '../../app.component';
 
 @Component({
@@ -7,37 +7,45 @@ import { AppComponent } from '../../app.component';
   templateUrl: './navigation-menu.component.html',
   styleUrl: './navigation-menu.component.css'
 })
-export class NavigationMenuComponent {
+export class NavigationMenuComponent implements OnInit{
 
   constructor(private appComponent: AppComponent) { }
-  esAdmin: boolean = true;
+  esAdmin!: boolean;
 
+  ngOnInit(): void {
+      this.esAdmin = this.appComponent.isAdmin;
+  }
+
+  vista: string = 'dashboard';
   onDashboard(): void {
-    console.log('onDashboard');
+    this.appComponent.vista = 'dashboard';
+    this.vista = 'dashboard';
   }
 
   onLibros(): void {
-    console.log('onLibros');
     this.appComponent.vista = 'libros';
+    this.vista = 'libros';
   }
 
   onJuegos(): void {
-    console.log('onJuegos');
     this.appComponent.vista = 'juegos';
+    this.vista = 'juegos';
   }
 
   onCampeonatos(): void {
-    console.log('onCampeonatos');
     this.appComponent.vista = 'campeonatos';
+    this.vista = 'campeonatos';
   }
 
   onAdministracion(): void {
-    console.log('onAdministracion');
     this.appComponent.vista = 'administracion';
+    this.vista = 'administracion';
   }
 
   onLogout(): void {
-    console.log('onLogout');
     this.appComponent.isLoggedIn = false;
+    this.appComponent.isLogging = true;
+    this.appComponent.vista = 'dashboard';
+    this.appComponent.gestion = 'usuarios';
   }
 }

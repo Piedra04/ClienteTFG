@@ -16,6 +16,10 @@ export class ReservaJuegoService {
     return this.http.get<ReservaJuego[]>(this.url);
   }
 
+  findById(id: number): Observable<ReservaJuego> {
+    return this.http.get<ReservaJuego>(`${this.url}/${id}`);
+  }
+
   createReserva(reserva: ReservaJuego): Observable<ReservaJuego> {
     return this.http.post<ReservaJuego>(this.url, reserva);
   }

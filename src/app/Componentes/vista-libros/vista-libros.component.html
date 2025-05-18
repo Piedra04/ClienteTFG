@@ -4,174 +4,61 @@
   <!-- Contenedor de los libros (paginado) -->
   <div class="row" id="books-container">
 
+    @for(libro of librosFiltrados; track libro) {
+
     <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3 book-card">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Título</h5>
-          <p class="card-text">Descripción</p>
-          <a href="#" class="btn btn-primary">Reservar</a>
-          <p class="mt-2 text-muted">Quedan <strong>5</strong> libros disponibles</p>
+          <h5 class="card-title">{{ libro.titulo }}</h5>
+          <p class="card-text">{{ libro.sinopsis }}</p>
+
+          @if(tieneReservaActiva(libro)) {
+          <button class="btn btn-secondary" disabled>Ya reservado</button>
+          }@else{
+          @if(libro.unidadesDisponibles > 0) {
+          <button class="btn btn-primary" (click)="reservar(libro)">Reservar</button>
+          }@else {
+          <button class="btn btn-secondary" disabled>Sin unidades disponibles</button>
+          }
+          }
+          <p class="mt-2 text-muted">Quedan <strong>{{ libro.unidadesDisponibles }}</strong> libros disponibles</p>
         </div>
       </div>
     </div>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3 book-card">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Título</h5>
-          <p class="card-text">Descripción</p>
-          <a href="#" class="btn btn-primary">Reservar</a>
-          <p class="mt-2 text-muted">Quedan <strong>5</strong> libros disponibles</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3 book-card">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Título</h5>
-          <p class="card-text">Descripción</p>
-          <a href="#" class="btn btn-primary">Reservar</a>
-          <p class="mt-2 text-muted">Quedan <strong>5</strong> libros disponibles</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3 book-card">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Título</h5>
-          <p class="card-text">Descripción</p>
-          <a href="#" class="btn btn-primary">Reservar</a>
-          <p class="mt-2 text-muted">Quedan <strong>5</strong> libros disponibles</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3 book-card">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Título</h5>
-          <p class="card-text">Descripción</p>
-          <a href="#" class="btn btn-primary">Reservar</a>
-          <p class="mt-2 text-muted">Quedan <strong>5</strong> libros disponibles</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3 book-card">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Título</h5>
-          <p class="card-text">Descripción</p>
-          <a href="#" class="btn btn-primary">Reservar</a>
-          <p class="mt-2 text-muted">Quedan <strong>5</strong> libros disponibles</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3 book-card">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Título</h5>
-          <p class="card-text">Descripción</p>
-          <a href="#" class="btn btn-primary">Reservar</a>
-          <p class="mt-2 text-muted">Quedan <strong>5</strong> libros disponibles</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3 book-card">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Título</h5>
-          <p class="card-text">Descripción</p>
-          <a href="#" class="btn btn-primary">Reservar</a>
-          <p class="mt-2 text-muted">Quedan <strong>5</strong> libros disponibles</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3 book-card">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Título</h5>
-          <p class="card-text">Descripción</p>
-          <a href="#" class="btn btn-primary">Reservar</a>
-          <p class="mt-2 text-muted">Quedan <strong>5</strong> libros disponibles</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3 book-card">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Título</h5>
-          <p class="card-text">Descripción</p>
-          <a href="#" class="btn btn-primary">Reservar</a>
-          <p class="mt-2 text-muted">Quedan <strong>5</strong> libros disponibles</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3 book-card">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Título</h5>
-          <p class="card-text">Descripción</p>
-          <a href="#" class="btn btn-primary">Reservar</a>
-          <p class="mt-2 text-muted">Quedan <strong>5</strong> libros disponibles</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3 book-card">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Título</h5>
-          <p class="card-text">Descripción</p>
-          <a href="#" class="btn btn-primary">Reservar</a>
-          <p class="mt-2 text-muted">Quedan <strong>5</strong> libros disponibles</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-4 mb-3 book-card">
-      <div class="card">
-        <div class="card-body">
-          <h5 class="card-title">Título</h5>
-          <p class="card-text">Descripción</p>
-          <a href="#" class="btn btn-primary">Reservar</a>
-          <p class="mt-2 text-muted">Quedan <strong>5</strong> libros disponibles</p>
-        </div>
-      </div>
-    </div>
+    }
 
   </div>
 </div>
 
 <div class="filter-sidebar">
   <h5>Filtros</h5>
+  <form action="">
+    <div class="mb-3">
+      <label class="form-label">Géneros</label>
+      @for (genero of generos; track genero) {
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" [id]="'createGenero' + genero.id" [value]="genero.id"
+          [checked]="isGeneroSeleccionado(genero)" (change)="toggleGeneroSeleccionado(genero, $event)">
 
-  <div class="form-group">
-    <label for="genero">Género</label>
-    <div class="form-check mb-2">
-      <input type="checkbox" class="form-check-input" id="accion" name="genero" value="accion">
-      <label class="form-check-label" for="accion">Acción</label>
+        <label class="form-check-label" [for]="'createGenero' + genero.id">
+          {{ genero.nombre }}
+        </label>
+      </div>
+      }
     </div>
-    <div class="form-check mb-2">
-      <input type="checkbox" class="form-check-input" id="comedia" name="genero" value="comedia">
-      <label class="form-check-label" for="comedia">Comedia</label>
+
+    <div class="form-group">
+      <label for="curso">Curso</label>
+      <select id="curso" class="form-select" [(ngModel)]="cursoSeleccionado" name="cursoSeleccionado">
+        <option value="">Todos los cursos</option>
+        @for(curso of cursos; track curso) {
+        <option value="{{curso}}">{{curso}}</option>
+        }
+      </select>
     </div>
-    <div class="form-check mb-2">
-      <input type="checkbox" class="form-check-input" id="drama" name="genero" value="drama">
-      <label class="form-check-label" for="drama">Drama</label>
-    </div>
-    <div class="form-check mb-2">
-      <input type="checkbox" class="form-check-input" id="terror" name="genero" value="terror">
-      <label class="form-check-label" for="terror">Terror</label>
-    </div>
-  </div>
-
-
-
-  <div class="form-group">
-    <label for="curso">Curso</label>
-    <select id="curso" class="form-select">
-      <option value="1ESO">1º ESO</option>
-      <option value="2ESO">2º ESO</option>
-      <option value="3ESO">3º ESO</option>
-      <option value="4ESO">4º ESO</option>
-    </select>
-  </div>
-
-  <button>Aplicar Filtros</button>
+  </form>
 </div>
+
+@if(message) {
+<div class="alert alert-info my-2">{{ message }}</div>
+}

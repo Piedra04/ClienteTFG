@@ -1,36 +1,52 @@
+@if(message) {
+  <div class="alert alert-info my-2">{{ message }}</div>
+}
 <!-- CREAR CAMPEONATO -->
-@if (formCrear == true) {
+@if (formCrear) {
 <div class="card mb-4">
   <div class="card-header bg-primary text-white">Crear Campeonato</div>
   <div class="card-body">
-    <form id="createCampeonatoForm">
+    <form id="createCampeonatoForm" (ngSubmit)="onCreate()">
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="createFechaInicio" class="form-label">Fecha de Inicio</label>
-          <input type="date" class="form-control" id="createFechaInicio" name="fechaInicio" required>
+          <input type="date" class="form-control" id="createFechaInicio" name="fechaInicio"
+            [(ngModel)]="campeonato.fechaInicio" required>
         </div>
         <div class="col-md-6 mb-3">
           <label for="createFechaFin" class="form-label">Fecha de Fin</label>
-          <input type="date" class="form-control" id="createFechaFin" name="fechaFin" required>
+          <input type="date" class="form-control" id="createFechaFin" name="fechaFin" [(ngModel)]="campeonato.fechaFin"
+            required>
         </div>
       </div>
       <div class="mb-3">
         <label for="createDescripcion" class="form-label">Descripción</label>
-        <textarea class="form-control" id="createDescripcion" name="descripcion" rows="3"></textarea>
+        <textarea class="form-control" id="createDescripcion" name="descripcion" rows="3"
+          [(ngModel)]="campeonato.descripcion"></textarea>
       </div>
       <div class="row">
         <div class="col-md-6 mb-3">
-          <label for="createGanador" class="form-label">ID del Ganador</label>
-          <input type="number" class="form-control" id="createGanador" name="ganador">
+          <label for="createGanador" class="form-label">Ganador</label>
+          <select class="form-select" id="createGanador" name="ganador" [(ngModel)]="campeonato.ganador">
+            <option [ngValue]="null">Sin asignar</option>
+            @for (usuario of usuarios; track usuario) {
+            <option [ngValue]="usuario">{{usuario.nombre}} {{usuario.apellidos}}</option>
+            }
+          </select>
         </div>
         <div class="col-md-6 mb-3">
-          <label for="createJuego" class="form-label">ID del Juego</label>
-          <input type="number" class="form-control" id="createJuego" name="juego" required>
+          <label for="createJuego" class="form-label">Juego</label>
+          <select class="form-select" id="createJuego" name="juego" [(ngModel)]="campeonato.juego" required>
+            <option [ngValue]="">Seleccionar...</option>
+            @for (juego of juegos; track juego) {
+            <option [ngValue]="juego">{{juego.nombre}}</option>
+            }
+          </select>
         </div>
       </div>
       <div class="mb-3">
         <label for="createEstado" class="form-label">Estado</label>
-        <select class="form-select" id="createEstado" name="estado" required>
+        <select class="form-select" id="createEstado" name="estado" [(ngModel)]="campeonato.estado" required>
           <option value="">Seleccionar...</option>
           <option value="FINALIZADO">Finalizado</option>
           <option value="EN_CURSO">En Curso</option>
@@ -52,7 +68,7 @@
 }
 
 <!-- TABLA DE CAMPEONATOS -->
-@if(lista == true) {
+@if(lista) {
 <button class="btn btn-primary" (click)="showCreate()"> Crear Campeonato</button>
 <p></p>
 <div class="card mb-4">
@@ -64,7 +80,6 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Fecha Inicio</th>
           <th>Fecha Fin</th>
           <th>Descripción</th>
@@ -78,18 +93,21 @@
       <tbody>
         @for (campeonato of campeonatos; track campeonatos) {
         <tr>
-          <td>{{ campeonato.id }}</td>
           <td>{{ campeonato.fechaInicio }}</td>
           <td>{{ campeonato.fechaFin }}</td>
           <td>{{ campeonato.descripcion }}</td>
-          <td>{{ campeonato.ganador }}</td>
-          <td>{{ campeonato.juego }}</td>
+          @if(campeonato.ganador == null) {
+          <td>No asignado</td>
+          }@else {
+          <td>{{ campeonato.ganador.nombre }} {{ campeonato.ganador.apellidos }}</td>
+          }
+          <td>{{ campeonato.juego.nombre }}</td>
           <td>{{ campeonato.estado }}</td>
           <td>
             <button class="btn btn-danger" (click)="onRemove(campeonato.id)">Eliminar</button>
           </td>
           <td>
-            <button class="btn btn-warning" (click)="showEdit(campeonato.id)"> Editar</button>
+            <button class="btn btn-warning" (click)="showEdit(campeonato.id)">Editar</button>
           </td>
         </tr>
         }
@@ -101,42 +119,55 @@
 }
 
 <!-- EDITAR CAMPEONATO -->
-@if(formEditar == true) {
+@if(formEditar) {
 <div class="card mb-4">
   <div class="card-header bg-warning text-white">Editar Campeonato</div>
   <div class="card-body">
-    <form id="editCampeonatoForm">
+    <form id="editCampeonatoForm" (ngSubmit)="onEdit()">
       <div class="mb-3">
         <label for="editId" class="form-label">ID</label>
-        <input type="number" class="form-control" id="editId" name="id" readonly required>
+        <input type="number" class="form-control" id="editId" name="id" [(ngModel)]="campeonato.id" readonly required>
       </div>
       <div class="row">
         <div class="col-md-6 mb-3">
           <label for="editFechaInicio" class="form-label">Fecha de Inicio</label>
-          <input type="date" class="form-control" id="editFechaInicio" name="fechaInicio" required>
+          <input type="date" class="form-control" id="editFechaInicio" name="fechaInicio"
+            [(ngModel)]="campeonato.fechaInicio" required>
         </div>
         <div class="col-md-6 mb-3">
           <label for="editFechaFin" class="form-label">Fecha de Fin</label>
-          <input type="date" class="form-control" id="editFechaFin" name="fechaFin" required>
+          <input type="date" class="form-control" id="editFechaFin" name="fechaFin" [(ngModel)]="campeonato.fechaFin"
+            required>
         </div>
       </div>
       <div class="mb-3">
         <label for="editDescripcion" class="form-label">Descripción</label>
-        <textarea class="form-control" id="editDescripcion" name="descripcion" rows="3"></textarea>
+        <textarea class="form-control" id="editDescripcion" name="descripcion" rows="3"
+          [(ngModel)]="campeonato.descripcion"></textarea>
       </div>
       <div class="row">
         <div class="col-md-6 mb-3">
-          <label for="editGanador" class="form-label">ID del Ganador</label>
-          <input type="number" class="form-control" id="editGanador" name="ganador">
+          <label for="editGanador" class="form-label">Ganador</label>
+          <select class="form-select" id="editGanador" name="ganador" [(ngModel)]="campeonato.ganador">
+            <option [ngValue]="null">Sin asignar</option>
+            @for (usuario of usuarios; track usuario) {
+            <option [ngValue]="usuario">{{usuario.nombre}} {{usuario.apellidos}}</option>
+            }
+          </select>
         </div>
         <div class="col-md-6 mb-3">
-          <label for="editJuego" class="form-label">ID del Juego</label>
-          <input type="number" class="form-control" id="editJuego" name="juego" required>
+          <label for="editJuego" class="form-label">Juego</label>
+          <select class="form-select" id="editJuego" name="juego" [(ngModel)]="campeonato.juego" required>
+            <option [ngValue]="null">Seleccionar...</option>
+            @for (juego of juegos; track juego) {
+            <option [ngValue]="juego">{{juego.nombre}}</option>
+            }
+          </select>
         </div>
       </div>
       <div class="mb-3">
         <label for="editEstado" class="form-label">Estado</label>
-        <select class="form-select" id="editEstado" name="estado" required>
+        <select class="form-select" id="editEstado" name="estado" [(ngModel)]="campeonato.estado" required>
           <option value="">Seleccionar...</option>
           <option value="FINALIZADO">Finalizado</option>
           <option value="EN_CURSO">En Curso</option>
@@ -146,7 +177,7 @@
       </div>
       <div class="row">
         <div class="col-12 mb-2">
-          <button (click)="onEdit()" type="submit" class="btn btn-warning w-100">Guardar Cambios</button>
+          <button type="submit" class="btn btn-warning w-100">Guardar Cambios</button>
         </div>
         <div class="col-12">
           <button type="button" class="btn btn-secondary w-100" (click)="goBack()">Atrás</button>

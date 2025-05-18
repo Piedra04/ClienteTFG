@@ -12,23 +12,23 @@ export class VistaAdminComponent {
   constructor(private appComponent: AppComponent) { }
 
   onUsuarios(): void {
-    console.log('onUsuarios');
     this.appComponent.gestion = 'usuarios';
   }
 
   onJuegos(): void {
-    console.log('onJuegos');
     this.appComponent.gestion = 'juegos';
   }
 
   onLibros(): void {
-    console.log('onLibros');
     this.appComponent.gestion = 'libros';
   }
 
   onCampeonatos(): void {
-    console.log('onCampeonatos');
     this.appComponent.gestion = 'campeonatos';
+  }
+
+  onReserva(): void {
+    this.appComponent.gestion = 'reservas';
   }
 
   onSelectChange(event: Event): void {
@@ -46,8 +46,9 @@ export class VistaAdminComponent {
       case 'campeonatos':
         this.onCampeonatos();
         break;
-      default:
-        console.log('Seleccione una opción válida');
+      case 'reservas':
+        this.onReserva();
+        break;
     }
   }
 }

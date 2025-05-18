@@ -1,34 +1,42 @@
 <div class="d-flex justify-content-center align-items-center vh-100 bg-light">
     <div class="card p-4 shadow" style="width: 350px; margin: auto;">
         <h2 class="text-center">Registro de Usuario</h2>
-        <form (ngSubmit)="onRegister()" method="POST">
+        @if(message){
+        <div class="alert alert-danger text-center" role="alert">
+            {{ message }}
+        </div>
+        }
+        <form (ngSubmit)="onRegister()">
             <div class="mb-3">
                 <label for="nombre" class="form-label">Nombre:</label>
-                <input type="text" id="nombre" name="nombre" class="form-control" required>
+                <input type="text" id="nombre" name="nombre" class="form-control" [(ngModel)]="usuario.nombre" required>
             </div>
             <div class="mb-3">
                 <label for="apellidos" class="form-label">Apellidos:</label>
-                <input type="text" id="apellidos" name="apellidos" class="form-control" required>
+                <input type="text" id="apellidos" name="apellidos" class="form-control" [(ngModel)]="usuario.apellidos"
+                    required>
             </div>
             <div class="mb-3">
                 <label for="fecha_nacimiento" class="form-label">Fecha de Nacimiento:</label>
-                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="form-control" required>
+                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" class="form-control"
+                    [(ngModel)]="usuario.fechaNacimiento" required>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Correo Electrónico:</label>
-                <input type="email" id="email" name="email" class="form-control" required>
+                <input type="email" id="email" name="email" class="form-control" [(ngModel)]="usuario.correo" required>
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Contraseña:</label>
-                <input type="password" id="password" name="password" class="form-control" required>
+                <input type="password" id="password" name="password" class="form-control"
+                    [(ngModel)]="usuario.contrasena" required>
             </div>
             <div class="mb-3">
                 <label for="confirmar_password" class="form-label">Confirmar Contraseña:</label>
-                <input type="password" id="confirmar_password" name="confirmar_password" class="form-control" required>
+                <input type="password" id="confirmar_password" name="confirmar_password" class="form-control" [(ngModel)]="usuario.contrasena2" required>
             </div>
             <div class="mb-3">
                 <label for="curso" class="form-label">Curso:</label>
-                <select id="curso" name="curso" class="form-select" required>
+                <select id="curso" name="curso" class="form-select" [(ngModel)]="usuario.curso" required>
                     <option value="">Seleccione un curso</option>
                     <option value="1ESO">1º de ESO</option>
                     <option value="2ESO">2º de ESO</option>

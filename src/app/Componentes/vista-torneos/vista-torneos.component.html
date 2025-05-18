@@ -1,67 +1,34 @@
-<body>
-  <div class="container py-5">
-    <h1 class="text-center mb-5">Torneos de Juegos de Mesa</h1>
-
-    <!-- Sección de Ajedrez -->
-    <div class="game-section" id="ajedrez">
-      <h2 class="game-title">Ajedrez</h2>
-      <div class="row">
-        <!-- Torneo 1 -->
-        <div class="col-md-4">
-          <div class="tournament-card">
-            <h5>Torneo de Ajedrez Rápido</h5>
-            <p><strong>Fecha:</strong> 15 de Mayo, 2025</p>
-            <p><strong>Inscritos:</strong> 20 jugadores</p>
-            <p><strong>Estado:</strong> En curso</p>
-            <a href="#" class="btn btn-primary">Ver Detalles</a>
-          </div>
-        </div>
-        <!-- Torneo 2 -->
-        <div class="col-md-4">
-          <div class="tournament-card">
-            <h5>Campeonato Internacional de Ajedrez</h5>
-            <p><strong>Fecha:</strong> 20 de Junio, 2025</p>
-            <p><strong>Inscritos:</strong> 50 jugadores</p>
-            <p><strong>Estado:</strong> Inscripción abierta</p>
-            <a href="#" class="btn btn-success mt-2">Inscribirse</a> <!-- Botón de Inscripción -->
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sección de Parchís -->
-    <div class="game-section" id="parchis">
-      <h2 class="game-title">Parchís</h2>
-      <div class="row">
-        <!-- Torneo 1 -->
-        <div class="col-md-4">
-          <div class="tournament-card">
-            <h5>Torneo de Parchís Clásico</h5>
-            <p><strong>Fecha:</strong> 5 de Julio, 2025</p>
-            <p><strong>Inscritos:</strong> 10 jugadores</p>
-            <p><strong>Estado:</strong> Inscripción abierta</p>
-            <a href="#" class="btn btn-success mt-2">Inscribirse</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sección de Damas Chinas -->
-    <div class="game-section" id="damas">
-      <h2 class="game-title">Damas Chinas</h2>
-      <div class="row">
-        <!-- Torneo 1 -->
-        <div class="col-md-4">
-          <div class="tournament-card">
-            <h5>Campeonato Nacional de Damas Chinas</h5>
-            <p><strong>Fecha:</strong> 1 de Agosto, 2025</p>
-            <p><strong>Inscritos:</strong> 30 jugadores</p>
-            <p><strong>Estado:</strong> En curso</p>
-            <a href="#" class="btn btn-primary">Ver Detalles</a>
-          </div>
-        </div>
-      </div>
-    </div>
+<div class="container py-5">
+  @if(message) {
+  <div class="alert alert-info text-center" role="alert">
+    {{ message }}
   </div>
+  }
 
-</body>
+
+  <h1 class="text-center mb-5">Torneos de Juegos de Mesa</h1>
+  @for(juego of juegosConCampeonatosPendientes; track juego) {
+  <div class="game-section">
+    <h2 class="game-title">{{ juego.nombre }}</h2>
+    <div class="row">
+      @for(campeonato of campeonatos; track campeonato) {
+        @if(campeonato.juego.id == juego.id && campeonato.estado == 'PENDIENTE') {
+          <div class="col-md-4">
+            <div class="tournament-card">
+              <h5>{{ campeonato.descripcion }}</h5>
+              <p><strong>Fecha Inicio:</strong> {{ campeonato.fechaInicio }}</p>
+              <p><strong>Fecha Fin:</strong> {{ campeonato.fechaFin }}</p>
+              <p><strong>Estado:</strong> {{ campeonato.estado }}</p>
+              @if(usuarioApuntado(campeonato)) {
+                <button class="btn btn-secondary" disabled>Ya inscrito</button>
+              } @else {
+                <button class="btn btn-primary" (click)="apuntarse(campeonato)">Apuntarse</button>
+              }
+            </div>
+          </div>
+        }
+      }
+    </div>
+  </div> 
+}
+</div>

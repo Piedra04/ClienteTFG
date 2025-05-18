@@ -1,10 +1,30 @@
 <div class="sidenav">
-  <a href="#" (click)="onDashboard()">Dashboard</a>
-  <a href="#" (click)="onLibros()">Libros</a>
-  <a href="#" (click)="onJuegos()">Juegos</a>
-  <a href="#" (click)="onCampeonatos()">Campeonatos</a>
+  @if(vista == 'dashboard') {
+    <a href="#" (click)="onDashboard()" class="active-orange">Dashboard</a>
+  } @else {
+    <a href="#" (click)="onDashboard()">Dashboard</a>
+  }
+  @if(vista == 'libros') {
+    <a href="#" (click)="onLibros()" class="active-orange">Libros</a>
+  } @else {
+    <a href="#" (click)="onLibros()">Libros</a>
+  }
+  @if(vista == 'juegos') {
+    <a href="#" (click)="onJuegos()" class="active-orange">Juegos</a>
+  } @else {
+    <a href="#" (click)="onJuegos()">Juegos</a>
+  }
+  @if(vista == 'campeonatos') {
+    <a href="#" (click)="onCampeonatos()" class="active-orange">Campeonatos</a>
+  } @else {
+    <a href="#" (click)="onCampeonatos()">Campeonatos</a>
+  }
   @if (esAdmin){
-  <a href="#" (click)="onAdministracion()">Administración</a>
+    @if(vista == 'administracion') {
+      <a href="#" (click)="onAdministracion()" class="active-orange">Administración</a>
+    } @else {
+      <a href="#" (click)="onAdministracion()">Administración</a>
+    }
   }
   <button class="logout-btn" (click)="onLogout()">Cerrar sesión</button>
 </div>

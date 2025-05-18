@@ -1,39 +1,60 @@
-<div class="card mb-4">
-    <div class="card-header bg-primary text-white">Insertar Libros</div>
-    <div class="card-body">
-        <div class="mb-3">
-            <label for="formFile" class="form-label">Introduzca el archivo para importar libros</label>
-            <input class="form-control" type="file" id="formFile">
-        </div>
-    </div>
-</div>
-
+@if(message) {
+  <div class="alert alert-info my-2">{{ message }}</div>
+}
 <!-- CREAR LIBRO -->
-@if (formCrear == true) {
+@if (formCrear) {
 <div class="card mb-4">
   <div class="card-header bg-primary text-white">Crear Libro</div>
   <div class="card-body">
-    <form id="createLibroForm">
+    <form id="createLibroForm" (ngSubmit)="onCreate()">
       <div class="mb-3">
         <label for="createIsbn" class="form-label">ISBN</label>
-        <input type="text" class="form-control" id="createIsbn" name="isbn" maxlength="13" required>
+        <input type="text" class="form-control" id="createIsbn" name="isbn" [(ngModel)]="libro.isbn" maxlength="13"
+          required>
       </div>
       <div class="mb-3">
         <label for="createTitulo" class="form-label">Título</label>
-        <input type="text" class="form-control" id="createTitulo" name="titulo" maxlength="50" required>
+        <input type="text" class="form-control" id="createTitulo" name="titulo" [(ngModel)]="libro.titulo"
+          maxlength="50" required>
       </div>
       <div class="mb-3">
         <label for="createAutor" class="form-label">Autor</label>
-        <input type="text" class="form-control" id="createAutor" name="autor" maxlength="50" required>
+        <input type="text" class="form-control" id="createAutor" name="autor" [(ngModel)]="libro.autor" maxlength="50"
+          required>
       </div>
       <div class="mb-3">
         <label for="createSinopsis" class="form-label">Sinopsis</label>
-        <textarea class="form-control" id="createSinopsis" name="sinopsis" rows="3" required></textarea>
+        <textarea class="form-control" id="createSinopsis" name="sinopsis" [(ngModel)]="libro.sinopsis" rows="3"
+          required></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Géneros</label>
+        @for (genero of generos; track genero) {
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" [id]="'createGenero' + genero.id" [value]="genero.id"
+            [checked]="isGeneroSeleccionado(genero)" (change)="toggleGeneroSeleccionado(genero, $event)">
+
+          <label class="form-check-label" [for]="'createGenero' + genero.id">
+            {{ genero.nombre }}
+          </label>
+        </div>
+        }
+        <small class="form-text text-muted">Selecciona uno o varios géneros.</small>
       </div>
       <div class="row">
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
+          <label for="createUnidadesTotales" class="form-label">Unidades Totales</label>
+          <input type="number" class="form-control" id="createUnidadesTotales" name="unidadesTotales"
+            [(ngModel)]="libro.unidadesTotales" min="1" required>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="createUnidadesDisponibles" class="form-label">Unidades Disponibles</label>
+          <input type="number" class="form-control" id="createUnidadesDisponibles" name="unidadesDisponibles"
+            [(ngModel)]="libro.unidadesDisponibles" min="0" required>
+        </div>
+        <div class="col-md-4 mb-3">
           <label for="createCurso" class="form-label">Curso</label>
-          <select class="form-select" id="createCurso" name="curso" required>
+          <select class="form-select" id="createCurso" name="curso" [(ngModel)]="libro.curso">
             <option value="">No es libro de ningún curso</option>
             <option value="1ESO">1º de ESO</option>
             <option value="2ESO">2º de ESO</option>
@@ -43,13 +64,6 @@
             <option value="2Bachillerato">2º de Bachillerato</option>
             <option value="GradoMedio">Grado Medio</option>
             <option value="GradoSuperior">Grado Superior</option>
-          </select>
-        </div>
-        <div class="col-md-6 mb-3">
-          <label for="createEstado" class="form-label">Estado</label>
-          <select class="form-select" id="createEstado" name="estado" required>
-            <option value="Disponible">Disponible</option>
-            <option value="NoDisponible">No Disponible</option>
           </select>
         </div>
       </div>
@@ -67,7 +81,7 @@
 }
 
 <!-- TABLA DE LIBROS -->
-@if(lista == true) {
+@if(lista) {
 <button class="btn btn-primary" (click)="showCreate()"> Crear Libro</button>
 <p></p>
 <div class="card mb-4">
@@ -82,8 +96,9 @@
           <th>ISBN</th>
           <th>Título</th>
           <th>Autor</th>
+          <th>Unidades Totales</th>
+          <th>Unidades Disponibles</th>
           <th>Curso</th>
-          <th>Estado</th>
           <th>Eliminar</th>
           <th>Editar</th>
         </tr>
@@ -94,8 +109,13 @@
           <td>{{ libro.isbn }}</td>
           <td>{{ libro.titulo }}</td>
           <td>{{ libro.autor }}</td>
+          <td>{{ libro.unidadesTotales }}</td>
+          <td>{{ libro.unidadesDisponibles }}</td>
+          @if(libro.curso == null) {
+          <td>Sin curso asignado</td>
+          }@else {
           <td>{{ libro.curso }}</td>
-          <td>{{ libro.estado }}</td>
+          }
           <td>
             <button class="btn btn-danger" (click)="onRemove(libro.isbn)">Eliminar</button>
           </td>
@@ -112,31 +132,61 @@
 }
 
 <!-- EDITAR LIBRO -->
-@if(formEditar == true) {
+@if(formEditar) {
 <div class="card mb-4">
   <div class="card-header bg-warning text-white">Editar Libro</div>
   <div class="card-body">
-    <form id="editLibroForm">
+    <form id="editLibroForm" (ngSubmit)="onEdit()">
       <div class="mb-3">
         <label for="editIsbn" class="form-label">ISBN</label>
-        <input type="text" class="form-control" id="editIsbn" name="isbn" readonly required>
+        <input type="text" class="form-control" id="editIsbn" name="isbn" [(ngModel)]="libro.isbn" readonly required>
       </div>
       <div class="mb-3">
         <label for="editTitulo" class="form-label">Título</label>
-        <input type="text" class="form-control" id="editTitulo" name="titulo" maxlength="50" required>
+        <input type="text" class="form-control" id="editTitulo" name="titulo" [(ngModel)]="libro.titulo" maxlength="50"
+          required>
       </div>
       <div class="mb-3">
         <label for="editAutor" class="form-label">Autor</label>
-        <input type="text" class="form-control" id="editAutor" name="autor" maxlength="50" required>
+        <input type="text" class="form-control" id="editAutor" name="autor" [(ngModel)]="libro.autor" maxlength="50"
+          required>
       </div>
       <div class="mb-3">
         <label for="editSinopsis" class="form-label">Sinopsis</label>
-        <textarea class="form-control" id="editSinopsis" name="sinopsis" rows="3" required></textarea>
+        <textarea class="form-control" id="editSinopsis" name="sinopsis" [(ngModel)]="libro.sinopsis" rows="3"
+          required></textarea>
+      </div>
+      <div class="mb-3">
+        <label class="form-label">Géneros</label>
+
+        @for (genero of generos; track genero) {
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" [id]="'createGenero' + genero.id" [value]="genero.id"
+            [checked]="isGeneroSeleccionado(genero)" (change)="toggleGeneroSeleccionado(genero, $event)">
+
+          <label class="form-check-label" [for]="'createGenero' + genero.id">
+            {{ genero.nombre }}
+          </label>
+        </div>
+        }
+
+
+        <small class="form-text text-muted">Selecciona uno o varios géneros.</small>
       </div>
       <div class="row">
-        <div class="col-md-6 mb-3">
+        <div class="col-md-4 mb-3">
+          <label for="editUnidadesTotales" class="form-label">Unidades Totales</label>
+          <input type="number" class="form-control" id="editUnidadesTotales" name="unidadesTotales"
+            [(ngModel)]="libro.unidadesTotales" min="1" required>
+        </div>
+        <div class="col-md-4 mb-3">
+          <label for="editUnidadesDisponibles" class="form-label">Unidades Disponibles</label>
+          <input type="number" class="form-control" id="editUnidadesDisponibles" name="unidadesDisponibles"
+            [(ngModel)]="libro.unidadesDisponibles" min="0" required>
+        </div>
+        <div class="col-md-4 mb-3">
           <label for="editCurso" class="form-label">Curso</label>
-          <select class="form-select" id="editCurso" name="curso" required>
+          <select class="form-select" id="editCurso" name="curso" [(ngModel)]="libro.curso">
             <option value="">No es libro de ningún curso</option>
             <option value="1ESO">1º de ESO</option>
             <option value="2ESO">2º de ESO</option>
@@ -148,17 +198,10 @@
             <option value="GradoSuperior">Grado Superior</option>
           </select>
         </div>
-        <div class="col-md-6 mb-3">
-          <label for="editEstado" class="form-label">Estado</label>
-          <select class="form-select" id="editEstado" name="estado" required>
-            <option value="Disponible">Disponible</option>
-            <option value="NoDisponible">No Disponible</option>
-          </select>
-        </div>
       </div>
       <div class="row">
         <div class="col-12 mb-2">
-          <button (click)="onEdit()" type="submit" class="btn btn-warning w-100">Guardar Cambios</button>
+          <button type="submit" class="btn btn-warning w-100">Guardar Cambios</button>
         </div>
         <div class="col-12">
           <button type="button" class="btn btn-secondary w-100" (click)="goBack()">Atrás</button>

@@ -1,32 +1,35 @@
 <div class="form-container">
   <div class="form-card">
     <h2>Formulario de Reserva de Juego</h2>
-    <form>
+    @if(mensaje) {
+      <div class="alert alert-info text-center" role="alert">
+        {{ mensaje }}
+      </div>
+    }
+    <form id="reservarJuego" (ngSubmit)="reservarJuego()">
       <div class="mb-3">
         <label for="juego" class="form-label">Juego de Mesa</label>
-        <select class="form-select" id="juego" required>
+        <select class="form-select" id="juego" [(ngModel)]="reserva.juego" name="juego" required>
           <option value="" disabled selected>Seleccione un juego</option>
-          <option value="ajedrez">Ajedrez</option>
-          <option value="parchis">Parchís</option>
-          <option value="damas">Damas Chinas</option>
-          <option value="monopoly">Monopoly</option>
-          <option value="dominó">Dominó</option>
+          @for(juego of juegos; track juego) {
+          <option [ngValue]="juego">{{juego.nombre}}</option>
+          }
         </select>
       </div>
 
       <div class="mb-3">
         <label for="fecha" class="form-label">Fecha</label>
-        <input type="date" class="form-control" id="fecha" required>
+        <input type="date" class="form-control" id="fecha" [(ngModel)]="reserva.fecha" name="fecha" required>
       </div>
 
       <div class="mb-3">
         <label class="form-label">Recreo</label><br>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="recreo" id="recreo1" value="1" required>
+          <input class="form-check-input" type="radio" name="recreo" id="recreo1" value="PRIMERO" [(ngModel)]="reserva.recreo" required>
           <label class="form-check-label" for="recreo1">Recreo 1</label>
         </div>
         <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="recreo" id="recreo2" value="2" required>
+          <input class="form-check-input" type="radio" name="recreo" id="recreo2" value="SEGUNDO" [(ngModel)]="reserva.recreo" required>
           <label class="form-check-label" for="recreo2">Recreo 2</label>
         </div>
       </div>

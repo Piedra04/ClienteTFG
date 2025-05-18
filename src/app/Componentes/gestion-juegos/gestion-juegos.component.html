@@ -1,16 +1,21 @@
+@if(message) {
+  <div class="alert alert-info my-2">{{ message }}</div>
+}
 <!-- CREAR JUEGO -->
-@if (formCrear == true) {
+@if (formCrear) {
 <div class="card mb-4">
   <div class="card-header bg-primary text-white">Crear Juego</div>
   <div class="card-body">
-    <form id="createGameForm">
+    <form id="createGameForm" (ngSubmit)="onCreate()">
       <div class="mb-3">
         <label for="createNombre" class="form-label">Nombre del Juego</label>
-        <input type="text" class="form-control" id="createNombre" name="nombre" maxlength="50" required>
+        <input type="text" class="form-control" id="createNombre" name="nombre" [(ngModel)]="juego.nombre"
+          maxlength="50" required>
       </div>
       <div class="mb-3">
         <label for="createUnidades" class="form-label">Número de Unidades</label>
-        <input type="number" class="form-control" id="createUnidades" name="unidades" min="0" required>
+        <input type="number" class="form-control" id="createUnidades" name="nUnidades" [(ngModel)]="juego.nUnidades"
+          min="1" required>
       </div>
       <div class="row">
         <div class="col-12 mb-2">
@@ -27,7 +32,7 @@
 
 <!-- TABLA DE JUEGOS -->
 @if(lista == true) {
-<button class="btn btn-primary" (click)="showCreate()"> Crear Juego</button>
+<button class="btn btn-primary" (click)="showCreate()">Crear Juego</button>
 <p></p>
 <div class="card mb-4">
   <div class="card-header bg-info text-white">Lista de Juegos</div>
@@ -38,24 +43,22 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>ID</th>
           <th>Nombre</th>
           <th>Unidades</th>
-          <th>Eliminar</th>
           <th>Editar</th>
+          <th>Eliminar</th>
         </tr>
       </thead>
       <tbody>
         @for (juego of juegos; track juegos) {
         <tr>
-          <td>{{ juego.id }}</td>
           <td>{{ juego.nombre }}</td>
           <td>{{ juego.nUnidades }}</td>
           <td>
-            <button class="btn btn-danger" (click)="onRemove(juego.id)">Eliminar</button>
+            <button class="btn btn-warning" (click)="showEdit(juego.id)"> Editar</button>
           </td>
           <td>
-            <button class="btn btn-warning" (click)="showEdit(juego.id)"> Editar</button>
+            <button class="btn btn-danger" (click)="onRemove(juego.id)">Eliminar</button>
           </td>
         </tr>
         }
@@ -71,22 +74,24 @@
 <div class="card mb-4">
   <div class="card-header bg-warning text-white">Editar Juego</div>
   <div class="card-body">
-    <form id="editGameForm">
+    <form id="editGameForm" (ngSubmit)="onEdit()">
       <div class="mb-3">
         <label for="editId" class="form-label">ID</label>
-        <input type="number" class="form-control" id="editId" name="id" readonly required>
+        <input type="number" class="form-control" id="editId" name="id" [(ngModel)]="juego.id" readonly required>
       </div>
       <div class="mb-3">
         <label for="editNombre" class="form-label">Nombre del Juego</label>
-        <input type="text" class="form-control" id="editNombre" name="nombre" maxlength="50" required>
+        <input type="text" class="form-control" id="editNombre" name="nombre" [(ngModel)]="juego.nombre" maxlength="50"
+          required>
       </div>
       <div class="mb-3">
         <label for="editUnidades" class="form-label">Número de Unidades</label>
-        <input type="number" class="form-control" id="editUnidades" name="unidades" min="0" required>
+        <input type="number" class="form-control" id="editUnidades" name="nUnidades" [(ngModel)]="juego.nUnidades"
+          min="1" required>
       </div>
       <div class="row">
         <div class="col-12 mb-2">
-          <button (click)="onEdit()" type="submit" class="btn btn-warning w-100">Guardar Cambios</button>
+          <button type="submit" class="btn btn-warning w-100">Guardar Cambios</button>
         </div>
         <div class="col-12">
           <button type="button" class="btn btn-secondary w-100" (click)="goBack()">Atrás</button>

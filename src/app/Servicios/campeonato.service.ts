@@ -16,6 +16,10 @@ export class CampeonatoService {
     return this.http.get<Campeonato[]>(this.url);
   }
 
+  findById(id: number): Observable<Campeonato> {
+    return this.http.get<Campeonato>(`${this.url}/${id}`);
+  }
+
   createCampeonato(campeonato: Campeonato): Observable<Campeonato> {
     return this.http.post<Campeonato>(this.url, campeonato);
   }

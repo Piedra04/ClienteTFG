@@ -7,15 +7,18 @@ import { UsuarioService } from '../../Servicios/usuario.service';
 @Component({
   selector: 'app-gestion-usuarios',
   imports: [CommonModule, FormsModule],
+  standalone: true,
   templateUrl: './gestion-usuarios.component.html',
   styleUrl: './gestion-usuarios.component.css'
 })
 export class GestionUsuariosComponent implements OnInit {
 
+  usuario: Usuario = new Usuario();
   usuarios: Usuario[] = [];
   formCrear!: boolean;
   formEditar!: boolean;
   lista!: boolean;
+  message: string = '';
 
   constructor(private usuarioService: UsuarioService) { }
 
@@ -29,42 +32,74 @@ export class GestionUsuariosComponent implements OnInit {
   }
 
   showCreate(): void {
-    console.log('showCreate');
+    this.usuario = new Usuario();
     this.formCrear = true;
     this.lista = false;
 
   }
 
   showEdit(id: number): void {
-    console.log('showEdit');
-    this.formEditar = true;
-    this.lista = false;
-    const usuario = this.usuarios.find(u => u.id === id);
-    if (usuario) {
-      console.log("usuario");
-      (document.getElementById('editId') as HTMLInputElement).value = usuario.id.toString();
-      (document.getElementById('editNombre') as HTMLInputElement).value = usuario.nombre;
-      (document.getElementById('editApellidos') as HTMLInputElement).value = usuario.apellidos;
-      (document.getElementById('editFechaNacimiento') as HTMLInputElement).value = usuario.fechaNacimiento.toISOString().split('T')[0];
-      (document.getElementById('editCorreo') as HTMLInputElement).value = usuario.correo;
-      (document.getElementById('editRol') as HTMLSelectElement).value = usuario.rol;
-      (document.getElementById('editCurso') as HTMLInputElement).value = usuario.curso;
-    }
+    this.usuarioService.findById(id).subscribe((usuario: Usuario) => {
+      this.usuario = usuario;
+      this.usuario.contrasena = ''; // Limpiar el campo de contraseña
+      this.formEditar = true;
+      this.lista = false;
+    });
   }
 
   onCreate(): void {
-    console.log('onCreate');
+    this.usuario.contrasena = '';
+    const form = document.getElementById('createUsuarioForm') as HTMLFormElement;
+    if (form && !form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    this.usuarioService.createUser(this.usuario).subscribe({
+      next: () => {
+        this.usuarioService.findAll().subscribe((data: Usuario[]) => {
+          this.usuarios = data;
+          this.usuario = new Usuario();
+          this.message = 'Usuario creado correctamente.';
+          this.goBack();
+        });
+      },
+      error: () => {
+        this.message = 'Error al crear el usuario';
+      }
+    });
   }
 
   onEdit(): void {
-    console.log('onEdit');
+    const form = document.getElementById('editUsuarioForm') as HTMLFormElement;
+    if (form && !form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+    this.usuarioService.updateUser(this.usuario).subscribe({
+      next: () => {
+        this.usuarioService.findAll().subscribe((data: Usuario[]) => {
+          this.usuarios = data;
+          this.usuario = new Usuario();
+          this.message = 'Usuario editado correctamente.';
+          this.goBack();
+        });
+      },
+      error: () => {
+        this.message = 'Error al editar el usuario';
+      }
+    });
   }
 
   onRemove(id: number): void {
-    this.usuarioService.deleteUser(id).subscribe(() => {
-      // Esto quitará el usuario de la lista en la vista
-      this.usuarios = this.usuarios.filter(usuario => usuario.id !== id);
-    })
+    this.usuarioService.deleteUser(id).subscribe({
+      next: () => {
+        this.usuarios = this.usuarios.filter(usuario => usuario.id !== id);
+        this.message = 'Usuario eliminado correctamente.';
+      },
+      error: () => {
+        this.message = 'Error al eliminar el usuario';
+      }
+    });
   }
 
   goBack(): void {

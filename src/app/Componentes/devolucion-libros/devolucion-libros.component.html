@@ -1,0 +1,14 @@
+<h2>Reservas de libros pendientes de devolución</h2>
+<ul class="list-group mb-4">
+  @for(reserva of reservasLibrosPendientes; track reserva) {
+    <li class="list-group-item d-flex align-items-center" style="background: #f8f9fa; border-radius: 8px; margin-bottom: 8px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+      <div style="flex:1">
+        <strong style="font-size:1.1em; color:#2c3e50;">{{ reserva.libro.titulo }}</strong>
+        <span class="badge bg-primary ms-2">ISBN: {{ reserva.libro.isbn }}</span><br>
+        <span style="color:#555; font-size:0.95em;">Usuario: {{ reserva.usuario.nombre }} {{ reserva.usuario.apellidos }}</span><br>
+        <span style="color:#555; font-size:0.95em;">Fecha de adquisición: {{ reserva.fechaAdquisicion }}</span>
+      </div>
+      <button class="btn btn-success ms-3" (click)="marcarDevuelto(reserva)">Marcar como devuelto</button>
+    </li>
+  }
+</ul>

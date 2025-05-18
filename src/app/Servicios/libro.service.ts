@@ -16,6 +16,10 @@ export class LibroService {
     return this.http.get<Libro[]>(this.url);
   }
 
+  findByIsbn(isbn: string): Observable<Libro> {
+    return this.http.get<Libro>(`${this.url}/${isbn}`);
+  }
+
   createBook(libro: Libro): Observable<Libro> {
     return this.http.post<Libro>(this.url, libro);
   }

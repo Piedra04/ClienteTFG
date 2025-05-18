@@ -16,6 +16,10 @@ export class RondaService {
     return this.http.get<Ronda[]>(this.url);
   }
 
+  findById(id: number): Observable<Ronda> {
+    return this.http.get<Ronda>(`${this.url}/${id}`);
+  }
+
   createRonda(ronda: Ronda): Observable<Ronda> {
     return this.http.post<Ronda>(this.url, ronda);
   }

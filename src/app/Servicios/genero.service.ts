@@ -16,6 +16,10 @@ export class GeneroService {
     return this.http.get<Genero[]>(this.url);
   }
 
+  findById(id: number): Observable<Genero> {
+    return this.http.get<Genero>(`${this.url}/${id}`);
+  }
+
   createGenero(genero: Genero): Observable<Genero> {
     return this.http.post<Genero>(this.url, genero);
   }

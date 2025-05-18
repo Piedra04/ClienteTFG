@@ -16,6 +16,10 @@ export class ParticipacionCampeonatoService {
     return this.http.get<ParticipacionCampeonato[]>(this.url);
   }
 
+  findById(id: number): Observable<ParticipacionCampeonato> {
+    return this.http.get<ParticipacionCampeonato>(`${this.url}/${id}`);
+  }
+
   createParticipacion(participacion: ParticipacionCampeonato): Observable<ParticipacionCampeonato> {
     return this.http.post<ParticipacionCampeonato>(this.url, participacion);
   }

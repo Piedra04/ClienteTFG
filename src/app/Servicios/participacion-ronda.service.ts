@@ -16,6 +16,10 @@ export class ParticipacionRondaService {
     return this.http.get<ParticipacionRonda[]>(this.url);
   }
 
+  findById(id: number): Observable<ParticipacionRonda> {
+    return this.http.get<ParticipacionRonda>(`${this.url}/${id}`);
+  }
+
   createParticipacion(participacion: ParticipacionRonda): Observable<ParticipacionRonda> {
     return this.http.post<ParticipacionRonda>(this.url, participacion);
   }

@@ -34,3 +34,8 @@
 .logout-btn:hover {
     background-color: #c82333;
 }
+
+.active-orange {
+  color: orange !important;
+  font-weight: bold;
+}

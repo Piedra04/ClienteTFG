@@ -5,7 +5,7 @@ export class ReservaJuego {
 
     id!: number;
     fecha!: Date;
-    juegoId!: number;
     usuario!: Usuario;
     juego!: Juego;
+    recreo!: String;
 }
